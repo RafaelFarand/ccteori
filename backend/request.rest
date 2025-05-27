@@ -1,0 +1,75 @@
+### Base URL
+@baseUrl = http://localhost:5000
+
+### Register New User
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "email": "testuser@example.com",
+    "password": "password123",
+    "role": "anggota"
+}
+
+### Register New Treasurer
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+    "username": "treasurer",
+    "email": "treasurer@example.com",
+    "password": "password123",
+    "role": "bendahara"
+}
+
+### Login User
+POST {{baseUrl}}/login
+Content-Type: application/json
+
+{
+    "username": "testuser",
+    "password": "password123"
+}
+
+### Get All Users (Bendahara Only)
+GET {{baseUrl}}/api/users
+Authorization: Bearer <your_token_here>
+
+### Get All Financial Records
+GET {{baseUrl}}/api/keuangan
+Authorization: Bearer <your_token_here>
+
+### Add Deposit (Anggota & Bendahara)
+POST {{baseUrl}}/api/keuangan/setoran
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+
+{
+    "tanggal": "2024-03-20",
+    "jumlah": 100000,
+    "keterangan": "Setoran bulanan",
+    "kategori": "iuran"
+}
+
+### Add Expense (Bendahara Only)
+POST {{baseUrl}}/api/keuangan/pengeluaran
+Content-Type: application/json
+Authorization: Bearer <your_token_here>
+
+{
+    "tanggal": "2024-03-20",
+    "jumlah": 50000,
+    "keterangan": "Pembelian ATK",
+    "kategori": "operasional"
+}
+
+### Refresh Token
+GET {{baseUrl}}/token
+Cookie: refreshToken=<your_refresh_token_here>
+
+### Logout
+DELETE {{baseUrl}}/logout
+Authorization: Bearer <your_token_here>
+
+

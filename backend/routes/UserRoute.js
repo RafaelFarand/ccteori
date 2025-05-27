@@ -9,7 +9,7 @@ const router = express.Router();
 
 router.use(dummyAuth);
 
-router.get("/", authorizeRoles("bendahara"), getAllUsers);
+router.get("/user", authorizeRoles("bendahara"), getAllUsers);
 router.post("/", authorizeRoles("bendahara"), createUser);
 
 export default router;

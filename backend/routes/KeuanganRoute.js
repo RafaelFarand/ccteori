@@ -10,7 +10,7 @@ const router = express.Router();
 
 router.use(dummyAuth);
 
-router.get("/", getKeuangan);
+router.get("/get", getKeuangan);
 router.post("/setoran", authorizeRoles("anggota", "bendahara"), tambahSetoran);
 router.post("/pengeluaran", authorizeRoles("bendahara"), tambahPengeluaran);
 

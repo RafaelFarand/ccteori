@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
+import axios from 'axios';
 import '../styles/auth.css';
 
 const Login = () => {
   const { login, authError } = useContext(AuthContext);
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
@@ -14,8 +17,16 @@ const Login = () => {
     setIsLoading(true);
 
     try {
-      login({ username, role: username === "budi" ? "bendahara" : "anggota" });
+      const response = await axios.post('/api/users/login', {
+        username,
+        password
+      });
+      localStorage.setItem('role', response.data.role);
+      localStorage.setItem('user_id', response.data.id);
+      login({ username: response.data.username, role: response.data.role });
       navigate("/");
+    } catch (err) {
+      setError('Login failed: ' + err.response?.data?.message || 'Unknown error');
     } finally {
       setIsLoading(false);
     }
@@ -30,6 +41,7 @@ const Login = () => {
         </div>
 
         {authError && <div className="error-message">{authError}</div>}
+        {error && <div className="error-message">{error}</div>}
 
         <form onSubmit={handleLogin} className="auth-form">
           <div className="form-group">
@@ -40,6 +52,18 @@ const Login = () => {
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Enter your username"
+              required
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
               required
             />
           </div>

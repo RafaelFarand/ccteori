@@ -1,15 +1,7 @@
-// components/Keuangan.js
 import { useEffect, useState } from "react";
 
-const Keuangan = () => {
-  const [list, setList] = useState([]);
+const KeuanganSummary = () => {
   const [summary, setSummary] = useState({ pemasukan: 0, pengeluaran: 0, saldo: 0 });
-
-  useEffect(() => {
-    fetch("/api/keuangan")
-      .then(res => res.json())
-      .then(setList);
-  }, []);
 
   useEffect(() => {
     fetch("/api/keuangan/summary")
@@ -19,14 +11,6 @@ const Keuangan = () => {
 
   return (
     <div>
-      <h2>Data Keuangan</h2>
-      <ul>
-        {list.map(item => (
-          <li key={item.id}>
-            {item.tanggal} - {item.jenis} - Rp{item.jumlah} - {item.keterangan}
-          </li>
-        ))}
-      </ul>
       <h3>Ringkasan Keuangan</h3>
       <ul>
         <li>Total Pemasukan: Rp{summary.pemasukan}</li>
@@ -37,4 +21,4 @@ const Keuangan = () => {
   );
 };
 
-export default Keuangan;
+export default KeuanganSummary;

@@ -10,6 +10,7 @@ const Register = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [role, setRole] = useState("anggota");
   
   const { register, authError } = useContext(AuthContext);
   const navigate = useNavigate();
@@ -38,8 +39,9 @@ const Register = () => {
     setPasswordError('');
     
     try {
-      const success = await register(email, username, password);
+      const success = await register(email, username, password, role);
       if (success) {
+        alert('Registration successful, please login.');
         navigate('/login');
       }
       // Jika gagal, pesan error sudah ditangani di context (authError)
@@ -64,6 +66,7 @@ const Register = () => {
             <input
               type="email"
               id="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
@@ -76,6 +79,7 @@ const Register = () => {
             <input
               type="text"
               id="username"
+              name="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               placeholder="Choose a username"
@@ -88,6 +92,7 @@ const Register = () => {
             <input
               type="password"
               id="password"
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Create a password"
@@ -106,6 +111,20 @@ const Register = () => {
               required
             />
             {passwordError && <div className="field-error">{passwordError}</div>}
+          </div>
+          
+          <div className="form-group">
+            <label htmlFor="role">Role</label>
+            <select
+              id="role"
+              name="role"
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+              required
+            >
+              <option value="anggota">Anggota</option>
+              <option value="bendahara">Bendahara</option>
+            </select>
           </div>
           
           <button 

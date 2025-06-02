@@ -4,16 +4,16 @@ import {
   tambahSetoran,
   tambahPengeluaran,
   updateKeuangan,
+  getSummary,
 } from "../controllers/KeuanganController.js";
-import { dummyAuth, authorizeRoles } from "../middleware/AuthMiddleware.js";
 
 const router = express.Router();
 
-router.use(dummyAuth);
-
-router.get("/get", getKeuangan);
-router.post("/setoran", authorizeRoles("anggota", "bendahara"), tambahSetoran);
-router.post("/pengeluaran", authorizeRoles("bendahara"), tambahPengeluaran);
-router.put("/update/:id", authorizeRoles("bendahara"), updateKeuangan);
+// Semua endpoint tanpa verifyToken/authorizeRoles
+router.get("/", getKeuangan);
+router.get("/summary", getSummary);
+router.post("/setoran", tambahSetoran);
+router.post("/pengeluaran", tambahPengeluaran);
+router.put("/update/:id", updateKeuangan);
 
 export default router;

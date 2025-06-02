@@ -11,7 +11,6 @@ const User = mysqlDb.define("user", {
     allowNull: false,
     defaultValue: "anggota",
   },
-  refresh_token: { type: DataTypes.TEXT, allowNull: true },
   created_at: { type: DataTypes.DATE, defaultValue: DataTypes.NOW },
 }, { freezeTableName: true, timestamps: false });
 

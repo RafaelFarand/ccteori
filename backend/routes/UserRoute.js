@@ -10,6 +10,6 @@ const router = express.Router();
 router.use(dummyAuth);
 
 router.get("/user", authorizeRoles("bendahara"), getAllUsers);
-router.post("/", authorizeRoles("bendahara"), createUser);
+router.post("/add-user", createUser);
 
 export default router;

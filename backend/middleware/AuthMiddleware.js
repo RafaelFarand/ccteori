@@ -1,5 +1,5 @@
 export const dummyAuth = (req, res, next) => {
-  req.user = { id: 1, username: "budi", role: "anggota" }; // Simulasi user login
+  req.user = { id: 2, username: "galvin", role: "bendahara" }; // Simulasi user login
   next();
 };
 

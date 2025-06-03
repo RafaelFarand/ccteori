@@ -587,6 +587,43 @@ header h1::after {
   box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4);
 }
 
+/* Tambahan untuk riwayat keuangan */
+.riwayat-container {
+  margin-top: 30px;
+  background: rgba(255,255,255,0.03);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+.riwayat-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.02);
+}
+
+.riwayat-table th, .riwayat-table td {
+  border: 1px solid #333;
+  padding: 8px 12px;
+  text-align: left;
+  color: #fff;
+}
+
+.riwayat-table th {
+  background: #4f46e5;
+  color: #fff;
+}
+
+.riwayat-table tr:nth-child(even) {
+  background: rgba(106,130,251,0.08);
+}
+
+.empty-riwayat {
+  color: #aaa;
+  padding: 20px 0;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
   .title-container h1 {

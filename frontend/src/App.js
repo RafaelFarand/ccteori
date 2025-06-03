@@ -5,22 +5,34 @@ import Register from "./components/Register";
 import KeuanganForm from "./components/KeuanganForm";
 import KeuanganSummary from "./components/KeuanganSummary";
 import ProtectedRoute from "./components/ProtectedRoute";
+import KeuanganRiwayat from "./components/RiwayatKeuangan";
 
 const HomeMenu = () => {
-  const { user } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
+
+  const handleLogout = () => {
+    // Hapus data user di localStorage jika ada
+    localStorage.removeItem("role");
+    localStorage.removeItem("user_id");
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div>
       <h2>Selamat datang di Aplikasi Keuangan</h2>
       <KeuanganSummary />
       {user?.role === "anggota" && (
-        <button
-          style={{ marginTop: 20, padding: "10px 20px", fontSize: 16 }}
-          onClick={() => navigate("/setoran")}
-        >
-          Setor Iuran
-        </button>
+        <>
+          <button
+            style={{ marginTop: 20, padding: "10px 20px", fontSize: 16 }}
+            onClick={() => navigate("/setoran")}
+          >
+            Setor Iuran
+          </button>
+          <KeuanganRiwayat jenis="pengeluaran" title="Riwayat Pengeluaran" />
+        </>
       )}
       {user?.role === "bendahara" && (
         <div style={{ marginTop: 20 }}>
@@ -36,9 +48,26 @@ const HomeMenu = () => {
           >
             Tambah Pengeluaran
           </button>
+          <KeuanganRiwayat jenis="pemasukan" title="Riwayat Pemasukan" />
+          <KeuanganRiwayat jenis="pengeluaran" title="Riwayat Pengeluaran" />
         </div>
       )}
-      <p style={{ marginTop: 30 }}>Silakan pilih menu di atas</p>
+      <button
+        style={{
+          marginTop: 30,
+          padding: "10px 20px",
+          fontSize: 16,
+          background: "#ef4444",
+          color: "#fff",
+          border: "none",
+          borderRadius: 8,
+          cursor: "pointer"
+        }}
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
+      <p style={{ marginTop: 30 }}>@TCC ASIK</p>
     </div>
   );
 };
